@@ -2,25 +2,26 @@
 # VARIABLES
 # ==============================================================================
 
-NAMES      = Colleen Grace
+PROGRAMS   = Colleen Grace Sully
 CC         = clang
 CFLAGS     = -Wall -Wextra -Werror
+SRCS       = $(addsuffix .c, $(PROGRAMS))
 
 # ==============================================================================
-# TARGETS
+# TARGETS (เป้าหมาย)
 # ==============================================================================
 
-.PHONY: all clean fclean re $(NAMES)
+.PHONY: all clean fclean re
 
-all: $(NAMES)
+all: $(PROGRAMS)
 
-$(NAMES):
-	@echo "Compiling $^ to create executable: $@"
-	@$(CC) $(CFLAGS) $@.c -o $@
+$(PROGRAMS): %: %.c
+	@echo "Compiling $< to create executable: $@"
+	@$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	@echo "Removing executables: $(NAMES)"
-	@rm -f $(NAMES)
+	@echo "Removing executables: $(PROGRAMS)"
+	@rm -f $(PROGRAMS)
 
 fclean: clean
 
