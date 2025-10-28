@@ -2,7 +2,7 @@
 # VARIABLES
 # ==============================================================================
 
-PROGRAMS   = Colleen Grace
+PROGRAMS   = Sully
 NASM       = nasm
 NASMFLAGS  = -f elf64
 CC         = gcc

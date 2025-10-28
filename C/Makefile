@@ -23,5 +23,6 @@ clean:
 	@rm -f $(PROGRAMS)
 
 fclean: clean
+	@rm -f tmp Grace_kid.c
 
 re: fclean all
