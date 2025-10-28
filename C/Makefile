@@ -5,7 +5,6 @@
 PROGRAMS   = Colleen Grace Sully
 CC         = clang
 CFLAGS     = -Wall -Wextra -Werror
-SRCS       = $(addsuffix .c, $(PROGRAMS))
 
 # ==============================================================================
 # TARGETS (เป้าหมาย)

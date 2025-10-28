@@ -1,53 +1,20 @@
-section .text
-    global _start
+; Comment Outside main function
 
-_start:
-    ; Register conventions for syscall:
-    ; rax = syscall number
-    ; rdi = arg1
-    ; rsi = arg2
-    ; rdx = arg3
-
-    ; 1. Print the text/code segment
-    ; write(STDOUT_FILENO, _start, len_code)
-    mov  rax, 1             ; syscall number for 'write'
-    mov  rdi, 1             ; file descriptor 1 (STDOUT)
-    mov  rsi, _start        ; address of code to write
-    mov  rdx, len_code      ; length of code segment
-    syscall                 ; Execute the system call
-
-    ; 2. Print the data segment
-    ; write(STDOUT_FILENO, msg, len_data)
-    mov  rax, 1             ; syscall number for 'write'
-    mov  rdi, 1             ; file descriptor 1 (STDOUT)
-    mov  rsi, msg           ; address of data to write
-    mov  rdx, len_data      ; length of data segment
-    syscall                 ; Execute the system call
-
-    ; 3. Exit the program
-    ; exit(0)
-    mov  rax, 60            ; syscall number for 'exit'
-    xor  rdi, rdi           ; exit code 0
-    syscall                 ; Execute the system call
-
-; The code length needs to be manually calculated.
-; This is the length of the instructions from _start to here (len_code).
-len_code equ $ - _start 
+global main
+extern printf
 
 section .data
-msg db 'section .text', 10, '    global _start', 10, 10
-msg db '_start:', 10, '    mov  rax, 1', 10, '    mov  rdi, 1', 10
-msg db '    mov  rsi, _start', 10, '    mov  rdx, len_code', 10, '    syscall', 10, 10
-msg db '    mov  rax, 1', 10, '    mov  rdi, 1', 10, '    mov  rsi, msg', 10
-msg db '    mov  rdx, len_data', 10, '    syscall', 10, 10
-msg db '    mov  rax, 60', 10, '    xor  rdi, rdi', 10, '    syscall', 10, 10
-msg db 'len_code equ $ - _start', 10, 10, 'section .data', 10
-msg db 'msg db ', 39, 'section .text', 39, ', 10, ', 39, '    global _start', 39, ', 10, 10', 10
-msg db 'msg db ', 39, '_start:', 39, ', 10, ', 39, '    mov  rax, 1', 39, ', 10, ', 39, '    mov  rdi, 1', 39, ', 10', 10
-msg db 'msg db ', 39, '    mov  rsi, _start', 39, ', 10, ', 39, '    mov  rdx, len_code', 39, ', 10, ', 39, '    syscall', 39, ', 10, 10', 10
-msg db 'msg db ', 39, '    mov  rax, 1', 39, ', 10, ', 39, '    mov  rdi, 1', 39, ', 10, ', 39, '    mov  rsi, msg', 39, ', 10', 10
-msg db 'msg db ', 39, '    mov  rdx, len_data', 39, ', 10, ', 39, '    syscall', 39, ', 10, 10', 10
-msg db 'msg db ', 39, '    mov  rax, 60', 39, ', 10, ', 39, '    xor  rdi, rdi', 39, ', 10, ', 39, '    syscall', 39, ', 10, 10', 10
-msg db 'msg db ', 39, 'len_code equ $ - _start', 39, ', 10, 10, ', 39, 'section .data', 39, ', 10', 10
-msg db 'msg db ', 39
-len_data equ $ - msg
+code_str db "; Comment Outside main function%1$c%1$cglobal main%1$cextern printf%1$c%1$csection .data%1$ccode_str db %2$c%3$s%2$c, 0%1$c%1$csection .text%1$cmain:%1$cpush rbp%1$cmov rbp, rsp%1$clea rdi, [rel code_str]%1$c; Comment Inside main function%1$cmov rsi, 10%1$cmov rdx, 34%1$clea rcx, [rel code_str]%1$ccall printf%1$cpop rbp%1$cret%1$c", 0
+
+section .text
+main:
+push rbp
+mov rbp, rsp
+lea rdi, [rel code_str]
+; Comment Inside main function
+mov rsi, 10
+mov rdx, 34
+lea rcx, [rel code_str]
+call printf
+pop rbp
+ret
