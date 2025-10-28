@@ -19,11 +19,11 @@ all: $(PROGRAMS)
 
 %.o: %.s
 	@echo "Assembling $< to create object: $@"
-	@$(NASM) $(NASMFLAGS) $< -o $@
+	$(NASM) $(NASMFLAGS) $< -o $@
 
 $(PROGRAMS): %: %.o
 	@echo "Linking $< to create executable: $@"
-	@$(CC) $(CFLAGS) -no-pie $< -o $@
+	$(CC) $(CFLAGS) -no-pie $< -o $@
 
 clean:
 	@echo "Removing object files: $(OBJS)"
@@ -31,6 +31,6 @@ clean:
 
 fclean: clean
 	@echo "Removing executables: $(PROGRAMS)"
-	@rm -f $(PROGRAMS) tmp
+	@rm -f $(PROGRAMS) Grace_kid.s tmp
 
 re: fclean all
