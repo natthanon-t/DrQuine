@@ -7,7 +7,7 @@ CC         = clang
 CFLAGS     = -Wall -Wextra -Werror
 
 # ==============================================================================
-# TARGETS (เป้าหมาย)
+# TARGETS
 # ==============================================================================
 
 .PHONY: all clean fclean re
@@ -19,10 +19,12 @@ $(PROGRAMS): %: %.c
 	@$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	@echo "Removing executables: $(PROGRAMS)"
-	@rm -f $(PROGRAMS)
+	@echo "Removing C executables: $(PROGRAMS)"
+	@rm -f $(PROGRAMS) Sully_*
 
 fclean: clean
-	@rm -f tmp Grace_kid.c
+	@rm -f Grace_kid.c tmp
+	@rm -f Sully_0 Sully_1 Sully_2 Sully_3 Sully_4 Sully_5
+	@rm -f Sully_0.c Sully_1.c Sully_2.c Sully_3.c Sully_4.c Sully_5.c
 
 re: fclean all
