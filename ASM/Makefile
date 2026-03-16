@@ -22,7 +22,7 @@ all: $(PROGRAMS)
 
 $(PROGRAMS): %: %.o
 	@echo "Linking $< to create executable: $@"
-	@$(CC) $(CFLAGS) -no-pie $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	@echo "Removing ASM object files: $(OBJS)"
